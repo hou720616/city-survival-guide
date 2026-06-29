@@ -145,27 +145,11 @@ bash deploy.sh
 
 部署步骤概要：
 1. 打包源码（排除 `node_modules`、`dist`、`api/data`）
-2. 上传到腾讯云服务器 `124.220.65.144`
+2. 上传到腾讯云服务器
 3. 解压覆盖（保留 `api/data` 数据库）
 4. `npm run build` 构建前端
 5. Supervisor 重启后端 `csg-api`
 6. Nginx 重载
-
-## SSH 连接服务器
-
-```powershell
-# 查看 Supervisor 配置
-ssh -i "H:\test1_1\test1.pem" -o StrictHostKeyChecking=no ubuntu@124.220.65.144 "cat /etc/supervisor/conf.d/csg-api.conf"
-
-# 编辑 Supervisor 配置（修改环境变量等）
-ssh -t -i "H:\test1_1\test1.pem" -o StrictHostKeyChecking=no ubuntu@124.220.65.144 "sudo nano /etc/supervisor/conf.d/csg-api.conf"
-
-# 查看后端日志
-ssh -i "H:\test1_1\test1.pem" -o StrictHostKeyChecking=no ubuntu@124.220.65.144 "tail -50 /home/ubuntu/csg-project/api/logs/app.log"
-
-# 重启后端服务
-ssh -i "H:\test1_1\test1.pem" -o StrictHostKeyChecking=no ubuntu@124.220.65.144 "/usr/bin/sudo /usr/bin/supervisorctl restart csg-api"
-```
 
 ## 环境变量
 
