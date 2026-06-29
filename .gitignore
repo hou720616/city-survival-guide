@@ -27,4 +27,6 @@ dist-ssr
 !.env.example
 
 # Trae IDE
-.trae/
+.trae/*
+!.trae/skills/
+!.trae/rules/
