@@ -1,0 +1,635 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== 字体声明 ===== */
+@font-face {
+  font-family: "Lora";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Lora-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Lora";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/Lora-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Lora";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Lora-Italic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/WorkSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/WorkSans-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Nothing You Could Do";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/NothingYouCouldDo-Regular.ttf") format("truetype");
+}
+
+/* ===== 全局样式 ===== */
+:root {
+  --color-terracotta: #c75b3a;
+  --color-sage: #5a8a6e;
+  --color-parchment: #fdf8f3;
+  --color-espresso: #3d2b1f;
+  font-family: "Work Sans", system-ui, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  color: #3d2b1f;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #fdf8f3;
+  background-image: radial-gradient(
+      circle at 20% 30%,
+      rgba(199, 91, 58, 0.04) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(90, 138, 110, 0.04) 0%,
+      transparent 50%
+    );
+}
+
+/* ===== 自定义滚动条 ===== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5ebe0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e0cdb8;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c75b3a;
+}
+
+/* ===== 组件类 ===== */
+@layer components {
+  .card-parchment {
+    @apply bg-parchment-light border border-parchment-400/40 rounded-2xl shadow-card transition-all duration-300;
+  }
+
+  .card-parchment:hover {
+    @apply shadow-card-hover;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-terracotta text-white font-semibold rounded-xl shadow-warm transition-all duration-300 hover:bg-terracotta-dark hover:shadow-lg active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-sage text-white font-semibold rounded-xl transition-all duration-300 hover:bg-sage-dark active:scale-95;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-transparent text-terracotta border-2 border-terracotta font-semibold rounded-xl transition-all duration-300 hover:bg-terracotta hover:text-white active:scale-95;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-parchment-light border-2 border-parchment-400/50 rounded-xl text-espresso placeholder-espresso-300 transition-all duration-200 focus:border-terracotta focus:outline-none focus:ring-2 focus:ring-terracotta/20;
+  }
+
+  .input-field:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  .label-field {
+    @apply block text-sm font-semibold text-espresso mb-2;
+  }
+
+  .section-title {
+    @apply font-serif text-3xl md:text-4xl font-bold text-espresso;
+  }
+
+  .section-subtitle {
+    @apply text-espresso-300 text-base md:text-lg;
+  }
+}
+
+/* ===== 制图学装饰元素 ===== */
+.contour-decoration {
+  background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 35px,
+      rgba(199, 91, 58, 0.03) 35px,
+      rgba(199, 91, 58, 0.03) 36px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 35px,
+      rgba(90, 138, 110, 0.03) 35px,
+      rgba(90, 138, 110, 0.03) 36px
+    );
+}
+
+/* 坐标标记装饰 */
+.coordinate-marker::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 8px;
+  height: 8px;
+  border: 1.5px solid rgba(199, 91, 58, 0.3);
+  border-radius: 50%;
+}
+
+/* 等高线圆环装饰 */
+.contour-rings {
+  background-image: radial-gradient(
+    circle,
+    transparent 30%,
+    rgba(199, 91, 58, 0.04) 30%,
+    rgba(199, 91, 58, 0.04) 31%,
+    transparent 31%,
+    transparent 45%,
+    rgba(199, 91, 58, 0.04) 45%,
+    rgba(199, 91, 58, 0.04) 46%,
+    transparent 46%,
+    transparent 60%,
+    rgba(90, 138, 110, 0.04) 60%,
+    rgba(90, 138, 110, 0.04) 61%,
+    transparent 61%
+  );
+}
+
+/* 流式打字光标 */
+.typing-cursor::after {
+  content: "▊";
+  animation: blink 1s step-end infinite;
+  color: #c75b3a;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ===== 首页气泡升起动画 ===== */
+
+.bubble-rise-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 420px;
+  height: 70vh;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+  /* 底部渐变遮罩，让气泡从透明区域自然升起 */
+  mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,0.3) 8%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,0.3) 8%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, transparent 100%);
+}
+
+.bubble-rise-item {
+  position: absolute;
+  bottom: -10%;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  /* 气泡质感：径向渐变模拟光照 */
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(199, 91, 58, 0.12) 40%,
+    rgba(199, 91, 58, 0.25) 100%
+  );
+  border: 1px solid rgba(199, 91, 58, 0.18);
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.15),
+    0 0 12px rgba(199, 91, 58, 0.08);
+  animation: bubble-rise linear forwards;
+  will-change: bottom, transform, opacity;
+}
+
+/* 炸裂光环 */
+.bubble-rise-item::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(199, 91, 58, 0.4);
+  opacity: 0;
+  animation: bubble-burst-ring linear forwards;
+  animation-duration: inherit;
+  pointer-events: none;
+}
+
+/* 炸裂粒子：用小圆点模拟飞溅 */
+.bubble-rise-item::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(199, 91, 58, 0.5);
+  opacity: 0;
+  animation: bubble-burst-particles linear forwards;
+  animation-duration: inherit;
+  pointer-events: none;
+}
+
+.bubble-tag {
+  font-size: 12px;
+  font-weight: 700;
+  color: #c75b3a;
+  text-shadow: 0 0 8px rgba(199, 91, 58, 0.25);
+  line-height: 1.2;
+  text-align: center;
+  max-width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bubble-desc {
+  font-size: 9px;
+  color: rgba(61, 43, 31, 0.5);
+  line-height: 1.2;
+  text-align: center;
+  max-width: 75%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@keyframes bubble-rise {
+  0% {
+    bottom: -10%;
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  6% {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+  60% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  80% {
+    opacity: 0.35;
+    bottom: 75%;
+    transform: scale(1.15);
+  }
+  92% {
+    opacity: 0.15;
+    bottom: 82%;
+    transform: scale(1.4);
+  }
+  100% {
+    opacity: 0;
+    bottom: 88%;
+    transform: scale(0.15);
+  }
+}
+
+/* 炸开时的光环：从气泡边缘向外扩散 */
+@keyframes bubble-burst-ring {
+  0%, 90% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  93% {
+    opacity: 0.6;
+    transform: scale(1.2);
+  }
+  97% {
+    opacity: 0.2;
+    transform: scale(1.8);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.8);
+  }
+}
+
+/* 炸开时的粒子：小圆点向四周飞溅 */
+@keyframes bubble-burst-particles {
+  0%, 90% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0);
+  }
+  93% {
+    opacity: 0.7;
+    transform: translate(12px, -8px) scale(1);
+  }
+  97% {
+    opacity: 0.25;
+    transform: translate(20px, -14px) scale(0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(30px, -20px) scale(0);
+  }
+}
+
+/* ===== 高德地图沉浸式基底（特斯拉中控风格） ===== */
+
+/* 地图容器基础样式：绝对定位，通过尺寸控制显示区域 */
+.map-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 0;
+  overflow: hidden;
+  transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+              height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.45s ease-in-out;
+}
+
+/* 休眠态：地图自身边缘羽化为透明（特斯拉中控风格），直接溶入底色，无边界感 */
+.map-sleep {
+  width: 42vw;
+  height: 42vh;
+  opacity: 0.55;
+  filter: saturate(0.3) brightness(1.15);
+  pointer-events: none;
+  border-radius: 0;
+  margin: 0;
+  /* 关键：让地图像素本身从右上角向左下方向羽化为透明，边缘完全淡出 */
+  -webkit-mask-image: radial-gradient(
+    ellipse 120% 120% at top right,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 28%,
+    rgba(0, 0, 0, 0.6) 50%,
+    rgba(0, 0, 0, 0.25) 68%,
+    rgba(0, 0, 0, 0) 85%
+  );
+  mask-image: radial-gradient(
+    ellipse 120% 120% at top right,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 28%,
+    rgba(0, 0, 0, 0.6) 50%,
+    rgba(0, 0, 0, 0.25) 68%,
+    rgba(0, 0, 0, 0) 85%
+  );
+}
+
+/* 激活态：地图扩展至右侧60%，全高，去除羽化遮罩还原完整地图 */
+.map-active {
+  width: 60vw;
+  height: 100vh;
+  opacity: 1;
+  filter: saturate(0.9) brightness(1);
+  pointer-events: auto;
+  z-index: 15;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+/* 避坑页地图：贴近左侧表单并用渐变遮罩平滑衔接 */
+.map-pitfalls {
+  width: calc(100vw - 420px);
+  height: calc(100vh - 73px);
+  top: 73px;
+  right: 0;
+  opacity: 1;
+  filter: saturate(0.9) brightness(1);
+  pointer-events: auto;
+  z-index: 15;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+/* 地图渐变遮罩层：实现软过渡，避免硬边界 */
+.map-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  transition: background 0.45s ease-in-out;
+}
+
+/* 休眠态遮罩：地图自身已羽化溶解，此处仅叠加极轻微底色 tint 统一色调 */
+.map-sleep .map-mask {
+  background: radial-gradient(
+    ellipse at top right,
+    transparent 0%,
+    transparent 55%,
+    rgba(253, 248, 243, 0.15) 80%,
+    rgba(253, 248, 243, 0.35) 100%
+  );
+}
+
+/* 激活态遮罩：左侧线性渐变过渡 */
+.map-active .map-mask {
+  background: linear-gradient(
+    to right,
+    rgba(253, 248, 243, 0.95) 0%,
+    rgba(253, 248, 243, 0.6) 8%,
+    rgba(253, 248, 243, 0.2) 18%,
+    transparent 30%
+  );
+}
+
+.map-pitfalls .map-mask {
+  background: linear-gradient(
+    to right,
+    rgba(253, 248, 243, 0.82) 0%,
+    rgba(253, 248, 243, 0.45) 4%,
+    rgba(253, 248, 243, 0.12) 10%,
+    transparent 18%
+  );
+}
+
+/* 生成方案页表单容器：休眠态居中且宽度收窄，激活态整块移动到左侧纯色区域居中 */
+.form-panel {
+  width: 100%;
+  max-width: 44rem;
+  margin-left: auto;
+  margin-right: auto;
+  transition: max-width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+              margin 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 激活态：表单整块落入左侧 40vw 纯色区域内并水平居中（地图占右侧 60vw） */
+.form-panel.form-active {
+  max-width: 36vw;
+  margin-left: max(1.5rem, calc((40vw - 36vw) / 2));
+  margin-right: auto;
+}
+
+/* ===== 结果页布局：左侧方案 + 右侧地图 ===== */
+
+/* 结果页地图：右侧 50vw，跟随主内容区域 */
+.map-result {
+  width: 50vw;
+  height: calc(100vh - 73px);
+  top: 73px;
+  right: 0;
+  left: auto;
+  opacity: 1;
+  filter: saturate(0.9) brightness(1);
+  pointer-events: auto;
+  z-index: 15;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.map-result .map-mask {
+  background: linear-gradient(
+    to left,
+    transparent 0%,
+    transparent 85%,
+    rgba(253, 248, 243, 0.3) 95%,
+    rgba(253, 248, 243, 0.8) 100%
+  );
+}
+
+/* 结果页容器：flex 左右分栏，填满 main 剩余高度 */
+.result-layout {
+  display: flex;
+  height: 100%;
+  min-height: 0;
+}
+
+/* 结果页左侧方案面板：50vw 宽度，可滚动 */
+.result-plan-panel {
+  width: 50vw;
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 7rem;
+  background-color: #fdf8f3;
+  background-image: radial-gradient(
+      circle at 20% 30%,
+      rgba(199, 91, 58, 0.04) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(90, 138, 110, 0.04) 0%,
+      transparent 50%
+    );
+}
+
+/* 结果页固定操作栏：只占左侧方案区域，避免被滚动容器裁切 */
+.result-actions {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 50vw;
+  z-index: 40;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem calc(1rem + env(safe-area-inset-bottom));
+  background: rgba(253, 248, 243, 0.96);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(224, 205, 184, 0.55);
+  box-shadow: 0 -10px 30px rgba(61, 43, 31, 0.08);
+}
+
+/* 移动端：取消分栏，地图隐藏或底部小窗 */
+@media (max-width: 768px) {
+  .map-sleep {
+    width: 40vw;
+    height: 20vh;
+  }
+  .map-active,
+  .map-pitfalls {
+    width: 100vw;
+    height: 40vh;
+    top: auto;
+    bottom: 0;
+    z-index: 15;
+  }
+  .map-active .map-mask,
+  .map-pitfalls .map-mask {
+    background: linear-gradient(
+      to bottom,
+      rgba(253, 248, 243, 0.95) 0%,
+      transparent 30%
+    );
+  }
+  .form-panel,
+  .form-panel.form-active {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* 结果页移动端：地图底部小窗 */
+  .map-result {
+    width: 100vw;
+    height: 36vh;
+    top: auto;
+    bottom: 0;
+    opacity: 1;
+    filter: none;
+    pointer-events: auto;
+    z-index: 15;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .result-layout {
+    flex-direction: column;
+    height: calc(100vh - 73px);
+  }
+  .result-plan-panel {
+    width: 100%;
+    height: calc(100vh - 73px);
+    padding-bottom: 36vh;
+  }
+  .result-actions {
+    width: 100vw;
+  }
+}
+
+/* 尊重用户减弱动态效果偏好 */
+@media (prefers-reduced-motion: reduce) {
+  .map-container,
+  .form-panel {
+    transition: none;
+  }
+}
